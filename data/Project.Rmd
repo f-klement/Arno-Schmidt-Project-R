@@ -1,0 +1,403 @@
+---
+title: "Project - Mapping the life and work of Arno Schmidt"
+author: "Florian Klement & David Siegl"
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document:
+    df_print: paged
+---
+
+```{r}
+library(knitr)
+library(dbplyr)
+library(dplyr)
+library(foreign)
+library(ggrepel)
+library(haven)
+library(kableExtra)
+library(tidyr)
+library(tidyverse)
+library(tidygeocoder)
+library(ggplot2)
+library(maps)
+library(ggrepel)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(rgdal)
+library(readr)
+library(maptools)
+library(ggspatial)
+library(sf)
+library(osmdata)
+library(rgeos)
+library(igraph)
+library(ggraph)
+library(leaflet)
+library(htmlwidgets)
+```
+
+<b> Geocoding </b>
+```{r}
+# locations_lived <- read.csv("./Arno Schmidt_locations_lived.csv")
+# 
+# locations_lived <- locations_lived %>% 
+#    tidygeocoder::geocode(city = location_current, country = country_current, method = 'osm', 
+#           full_results = TRUE, custom_query= list(extratags = 1))
+# 
+# locations_lived_filtered <- locations_lived %>%
+#   select(ï..address, state_original, state_current, country_current, country_original, location_current, location_original, lat, long, category, moved_in, moved_out)
+
+#write.csv(locations_lived_filtered, "Arno Schmidt_locations_lived_latlong.csv")
+```
+
+
+```{r}
+# locations_referenced <- read.csv("./Arno Schmidt_locations_referenced.csv")
+# 
+# locations_referenced <- locations_referenced %>% 
+#    tidygeocoder::geocode(city = location_current, country = country_current, method = 'osm', 
+#           full_results = TRUE, custom_query= list(extratags = 1))
+# 
+# locations_referenced_filtered <- locations_referenced %>%
+#   select(state_original, state_current, country_current, country_original, location_current, ï..location_original, lat, long, category, work_referenced)
+
+#write.csv(locations_referenced_filtered, "Arno Schmidt_locations_referenced_latlong.csv")
+```
+
+
+```{r}
+locations_lived <- read.csv("./Arno Schmidt_locations_lived_latlong.csv")
+locations_itinerary <- read.csv("./Arno Schmidt_itinerary.csv")
+locations_referenced <- read.csv("./Arno Schmidt_locations_referenced_latlong.csv")
+works <- read.csv("./Arno Schmidt_works.csv")
+locations_works <- read.csv("./Arno Schmidt_locations_2.csv")
+```
+
+<b> Some preliminary EDA analysis </b>
+```{r}
+locations_lived <- locations_lived %>%
+  mutate(duration = moved_out - moved_in)
+
+locations_lived_duration <- locations_lived %>%
+  filter(duration != 0)
+
+ggplot(data = locations_lived_duration, aes(x=country_original, y=duration, fill = country_original)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Duration per country", x = "Country", y = "Duration", fill= "Country") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+ggplot(data = locations_lived_duration, aes(x=state_original, y=duration, fill = country_original)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Duration per state", x = "State", y = "Duration", fill = "Country") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+ggplot(data = locations_lived_duration, aes(x=location_original, y=duration, fill = country_original)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Duration per location", x = "State", y = "Duration", fill = "Country") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+```{r}
+locations_works_bargfeld <- locations_works %>%
+  filter(location == "Bargfeld")
+
+ggplot(data=locations_works, aes(x=location, y=title, fill = location)) +
+  geom_bar(stat="identity") +
+  labs(title = "Works per location", x = "Location", y = "Count", fill = "Location")
+
+ggplot(data=locations_works, aes(x=year, y=title)) +
+  geom_line() +
+  labs(title = "Productivity over time", x = "Year", y = "Count")
+
+ggplot(data=locations_works_bargfeld, aes(x=year, y=title)) +
+  geom_line() +
+  labs(title = "Productivity in Bargfeld over time", x = "Year", y = "Count")
+```
+```{r}
+locations_referenced_joined <- locations_referenced %>%
+  left_join(works, by = c("work_referenced"="id"))
+
+locations_referenced_joined_count <- locations_referenced_joined %>%
+  add_count(title, name = "count_title") %>%
+  distinct(work_referenced, .keep_all = TRUE)
+
+locations_referenced_joined_count_2 <- locations_referenced_joined %>%
+  add_count(location_original, name = "count_location") %>%
+  distinct(location_original, .keep_all = TRUE)
+
+locations_referenced_joined_count_top <- locations_referenced_joined_count %>%
+  top_n(5, count_title)
+
+locations_referenced_joined_count_3 <- locations_referenced_joined %>%
+  filter(count_references != 0)
+
+ggplot(data=locations_referenced_joined_count_top, aes(x=title, y=count_title, fill = title)) +
+  geom_bar(stat="identity") +
+  labs(title = "Works with most unique references", x = "Work", y = "References", fill = "Title") +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 7)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+ggplot(data=locations_referenced_joined_count_2, aes(x=location_original, y=count_location, fill = country_original)) +
+  geom_bar(stat="identity") +
+  labs(title = "Locations and their unique appearances", x = "Location", y = "References", fill = "Country") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+ggplot(data=locations_referenced_joined_count_3, aes(x=location_original, y=count_references, fill = country_original)) +
+  geom_bar(stat="identity") +
+  labs(title = "Locations and their total references", x = "Location", y = "References", fill = "Country") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+ggplot(data=locations_referenced_joined_count_3, aes(x=title, y=count_references, fill = title)) +
+  geom_bar(stat="identity") +
+  labs(title = "Number of total references per work", x = "Work", y = "References", fill = "Title") +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 7)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+
+<b> Creating maps </b>
+```{r}
+world <- ne_countries(scale = "medium", returnclass = "sf")
+ 
+rivers <- readOGR("./layer.riverData", "ne_50m_rivers_lake_centerlines")
+
+rivers_f <- fortify(rivers)
+
+lüneburg <- readOGR("./Lüneburger Heide", "Lüneburger Heide")
+
+lüneburg_f <- fortify(lüneburg)
+
+bundesländer <- readOGR("./Bundesländer", "DEU_adm1")
+
+bundesländer_f <- fortify(bundesländer)
+
+theme_set(theme_bw())
+waterColor = "lightsteelblue2"
+```
+
+
+```{r fig.width=5, fig.height=7}
+
+locations_lived_dupl <- locations_lived %>%
+  filter(id != 6)
+
+xlim=c(3.5,17); ylim=c(47.5,60)
+ggplot(data = world) +
+    geom_sf(fill="white", color="white") +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
+    geom_point(data = locations_lived_dupl, aes(x=long, y=lat), color = "red", size = 2) +
+    geom_text_repel(data = locations_lived_dupl, aes(x=long, y=lat, label = location_original), size = 4, force = 3, segment.alpha = 0) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    annotation_scale(location = "bl", width_hint = 0.25) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    ggtitle("Distribution of Schmidt's locations of residence") +
+    theme(panel.background = element_rect(fill = waterColor), plot.title = element_text(size = rel(1), hjust = 0.5), axis.title.y=element_blank(), axis.title.x=element_blank(), plot.margin=grid::unit(c(1,0,1,0), "mm"))
+
+locations_lived_1stperiod <- locations_lived %>%
+  filter(moved_in >= 1914 & moved_in < 1938)
+locations_itinerary_1stperiod <- locations_itinerary %>%
+  filter(period == 1)
+
+locations_lived_2ndperiod <- locations_lived %>%
+  filter(moved_out >= 1940 & moved_out <= 1945 | location_original == "Cordingen")
+locations_itinerary_2ndperiod <- locations_itinerary %>%
+  filter(period == 2)
+
+locations_lived_3rdperiod <- locations_lived %>%
+  filter(moved_out >= 1950 & moved_out <= 1979)
+locations_itinerary_3rdperiod <- locations_itinerary %>%
+  filter(period == 3)
+
+xlim=c(3.5,17); ylim=c(47.5,60)
+ggplot(data = world) +
+    geom_sf(fill="white", color="white") +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
+    geom_curve(data = locations_itinerary_1stperiod, aes(x = startlong, y = startlat, xend = endlong, yend = endlat), color = "red", size = 1, arrow = arrow(length = unit(0.2,"cm"))) +
+    geom_point(data = locations_lived_1stperiod, aes(x=long, y=lat), color = "black", size = 2) +
+    geom_text_repel(data = locations_lived_1stperiod, aes(x=long, y=lat, label = location_original), size = 4, force = 3, segment.alpha = 0) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    annotation_scale(location = "bl", width_hint = 0.25) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    ggtitle("Schmidt's itinerary from 1914 to 1938") +
+    theme(panel.background = element_rect(fill = waterColor), plot.title = element_text(size = rel(1), hjust = 0.5), axis.title.y=element_blank(), axis.title.x=element_blank(), plot.margin=grid::unit(c(1,0,1,0), "mm"))
+
+
+xlim=c(3.5,17); ylim=c(47.5,60)
+ggplot(data = world) +
+    geom_sf(fill="white", color="white") +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
+    geom_curve(data = locations_itinerary_2ndperiod, aes(x=startlong, y=startlat, xend = endlong, yend = endlat), color = "red", size = 1, curvature = -0.1, arrow = arrow(length = unit(0.2,"cm"))) +
+    geom_point(data = locations_lived_2ndperiod, aes(x=long, y=lat), color = "black", size = 2) +
+    geom_text_repel(data = locations_lived_2ndperiod, aes(x=long, y=lat, label = location_original), size = 4, force = 3, segment.alpha = 0) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    annotation_scale(location = "bl", width_hint = 0.25) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    ggtitle("Schmidt's itinerary from 1938 to 1945") +
+    theme(panel.background = element_rect(fill = waterColor), plot.title = element_text(size = rel(1), hjust = 0.5), axis.title.y=element_blank(), axis.title.x=element_blank(), plot.margin=grid::unit(c(1,0,1,0), "mm"))
+
+xlim=c(3.5,17); ylim=c(47.5,60)
+ggplot(data = world) +
+    geom_sf(fill="white", color="white") +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
+    geom_curve(data = locations_itinerary_3rdperiod, aes(x = startlong, y = startlat, xend=endlong, yend=endlat), color = "red", size = 1, arrow = arrow(length = unit(0.2,"cm"))) +
+    geom_point(data = locations_lived_3rdperiod, aes(x=long, y=lat), color = "black", size = 2) +
+    geom_text_repel(data = locations_lived_3rdperiod, aes(x=long, y=lat, label = location_original), size = 4, force = 3, segment.alpha = 0) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    annotation_scale(location = "bl", width_hint = 0.25) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    ggtitle("Schmidt's itinerary from 1945 to 1979") +
+    theme(panel.background = element_rect(fill = waterColor), plot.title = element_text(size = rel(1), hjust = 0.5), axis.title.y=element_blank(), axis.title.x=element_blank(), plot.margin=grid::unit(c(1,0,1,0), "mm"))
+
+locations_lived_germ <- locations_lived %>%
+  filter(country_current == "Germany")
+
+xlim=c(6.25,11.5); ylim=c(48.5,54)
+ggplot(data = world) +
+    geom_sf(fill="white", color="white") +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
+    geom_path(data = bundesländer_f, aes(x = long, y = lat, group = group), color = "red", size = 0.5) +
+    geom_polygon(data = lüneburg_f, aes(x = long, y = lat, group = group), color = "darkgreen", fill = "darkgreen", size =  1) +
+    geom_point(data = locations_lived_germ, aes(x=long, y=lat, color=category), size = 2) +
+    scale_color_manual(name="Area", values = c("city"="red", "village"="green")) +
+    geom_text_repel(data = locations_lived_germ, aes(x=long, y=lat, label = location_original), size = 4, force = 3, segment.alpha = 0) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    annotation_scale(location = "bl", width_hint = 0.25) +
+    ggtitle("Distribution of Schmidt's locations of residence in Germany") +
+    theme(panel.background = element_rect(fill = waterColor), plot.title = element_text(size = rel(1), hjust = 0.5), axis.title.y=element_blank(), axis.title.x=element_blank(), plot.margin=grid::unit(c(1,0,1,0), "mm"))
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+locations_lived_leaflet <- locations_lived %>%
+  mutate(popup = paste0(address, "<br> Arno Schmidt lived here from ", moved_in, " to ", moved_out))
+
+locations_lived_leaflet_city <- locations_lived_leaflet %>%
+  filter(category == "city")
+
+locations_lived_leaflet_village <- locations_lived_leaflet %>%
+  filter(category == "village")
+
+locations_lived_leaflet_1stperiod <- locations_lived_leaflet %>%
+  filter(moved_in >= 1914 & moved_in < 1938)
+
+locations_lived_leaflet_2ndperiod <- locations_lived_leaflet %>%
+  filter(moved_out >= 1940 & moved_out <= 1945)
+
+locations_lived_leaflet_3rdperiod <- locations_lived_leaflet %>%
+  filter(moved_out >= 1950 & moved_out <= 1979)
+
+m <- leaflet() %>%
+  addProviderTiles(providers$Stamen.Toner) %>%
+  setView(lng = 11, lat = 52, zoom = 7) %>%
+  addMarkers(data=locations_lived_leaflet_1stperiod, ~long, ~lat, popup=~popup, label=~location_original, group="1914-1938") %>%
+  addMarkers(data=locations_lived_leaflet_2ndperiod, ~long, ~lat, popup=~popup, label=~location_original, group="1938-1945") %>%
+  addMarkers(data=locations_lived_leaflet_3rdperiod, ~long, ~lat, popup=~popup, label=~location_original, group="1945-1979") %>%
+  addLayersControl(
+    overlayGroups = c("1914-1938", "1938-1945", "1945-1979")) %>%
+    hideGroup(c("1914-1938", "1938-1945", "1945-1979"))
+  #m
+```
+
+
+```{r}
+#saveWidget(m, 'map_locations_lived.html', selfcontained = FALSE)
+```
+
+
+```{r fig.width=5, fig.height=7}
+locations_referenced_unique <- locations_referenced %>%
+  select(-c(1, 11)) %>%
+  distinct()
+
+xlim=c(-10,16.5); ylim=c(34,63.5)
+ggplot(data = world) +
+    geom_sf(fill="white", color="white") +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
+    geom_point(data = locations_referenced_unique, aes(x=long, y=lat), color = "red", size = 2) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    annotation_scale(location = "bl", width_hint = 0.25) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    ggtitle("Distribution of Schmidt's referenced locations") +
+    theme(panel.background = element_rect(fill = waterColor), plot.title = element_text(size = rel(1), hjust = 0.5), axis.title.y=element_blank(), axis.title.x=element_blank(), plot.margin=grid::unit(c(1,0,1,0), "mm"))
+
+```
+
+
+```{r}
+locations_referenced_joined <- locations_referenced_joined %>%
+  mutate(popup = paste0(location_original, " is mentioned ", count_references, " times <br> <a href=",link,">See more</a>"))
+
+locations_referenced_joined_ZT <- locations_referenced_joined %>%
+  filter(title == "Zettel's Traum")
+
+locations_referenced_joined_AB <- locations_referenced_joined %>%
+  filter(title == "Abend mit Goldrand")
+
+locations_referenced_joined_G <- locations_referenced_joined %>%
+  filter(title == "Gadir oder erkenne dich")
+
+locations_referenced_joined_B <- locations_referenced_joined %>%
+  filter(title == "Brand's Haide")
+
+locations_referenced_joined_S <- locations_referenced_joined %>%
+  filter(title == "Schwarze Spiegel")
+
+locations_referenced_joined_F <- locations_referenced_joined %>%
+  filter(title == "Aus dem Leben eines Fauns")
+
+locations_referenced_joined_H <- locations_referenced_joined %>%
+  filter(title == "Das steinerne Herz")
+
+locations_referenced_joined_K <- locations_referenced_joined %>%
+  filter(title == "Kaff auch Mare Crisium")
+
+locations_referenced_joined_W <- locations_referenced_joined %>%
+  filter(title == "Windmuehlen")
+
+locations_referenced_joined_KG <- locations_referenced_joined %>%
+  filter(title == "Kundisches Geschirr")
+
+locations_referenced_joined_P <- locations_referenced_joined %>%
+  filter(title == "Piporakemes!")
+
+locations_referenced_joined_WS <- locations_referenced_joined %>%
+  filter(title == "Die Wasserstrasse")
+
+locations_referenced_joined_U <- locations_referenced_joined %>%
+  filter(title == "Die Umsiedler")
+
+locations_referenced_joined_SA <- locations_referenced_joined %>%
+  filter(title == "Die Schule der Atheisten")
+
+m2 <- leaflet() %>%
+  addProviderTiles(providers$Stamen.Toner) %>%
+  addMarkers(data=locations_referenced_joined_ZT, ~long, ~lat, label=~location_original, popup=~popup, group = "Zettel's Traum (1970)") %>%
+  addMarkers(data=locations_referenced_joined_AB, ~long, ~lat, label=~location_original, popup=~popup, group = "Abend mit Goldrand (1975)") %>%
+  addMarkers(data=locations_referenced_joined_G, ~long, ~lat, label=~location_original, popup=~popup, group = "Gadir oder erkenne dich (1949)") %>%
+  addMarkers(data=locations_referenced_joined_B, ~long, ~lat, label=~location_original, popup=~popup, group = "Brand's Haide (1951)") %>%
+  addMarkers(data=locations_referenced_joined_S, ~long, ~lat, label=~location_original, popup=~popup, group = "Schwarze Spiegel (1951)") %>%
+  addMarkers(data=locations_referenced_joined_F, ~long, ~lat, label=~location_original, popup=~popup, group = "Aus dem Leben eines Fauns (1953)") %>%
+  addMarkers(data=locations_referenced_joined_H, ~long, ~lat, label=~location_original, popup=~popup, group = "Das steinerne Herz (1956)") %>%
+  addMarkers(data=locations_referenced_joined_K, ~long, ~lat, label=~location_original, popup=~popup, group = "Kaff auch Mare Crisium (1960)") %>%
+  addMarkers(data=locations_referenced_joined_W, ~long, ~lat, label=~location_original, popup=~popup, group = "Windmuehlen (1960)") %>%
+  addMarkers(data=locations_referenced_joined_KG, ~long, ~lat, label=~location_original, popup=~popup, group = "Kundisches Geschirr (1962)") %>%
+  addMarkers(data=locations_referenced_joined_P, ~long, ~lat, label=~location_original, popup=~popup, group = "Piporakemes! (1962)") %>%
+  addMarkers(data=locations_referenced_joined_WS, ~long, ~lat, label=~location_original, popup=~popup, group = "Die Wasserstrasse (1963)") %>%
+  addMarkers(data=locations_referenced_joined_U, ~long, ~lat, label=~location_original, popup=~popup, group = "Die Umsiedler (1953)") %>%
+  addMarkers(data=locations_referenced_joined_SA, ~long, ~lat, label=~location_original, popup=~popup, group = "Die Schule der Atheisten (1972)") %>%
+  addLayersControl(
+    overlayGroups = c("Gadir oder erkenne dich (1949)", "Brand's Haide (1951)", "Schwarze Spiegel (1951)", "Aus dem Leben eines Fauns (1953)",  "Die Umsiedler (1953)", "Das steinerne Herz (1956)", "Kaff auch Mare Crisium (1960)", "Windmuehlen (1960)", "Kundisches Geschirr (1962)", "Piporakemes! (1962)", "Die Wasserstrasse (1963)", "Zettel's Traum (1970)", "Die Schule der Atheisten (1972)", "Abend mit Goldrand (1975)")
+  )%>%
+  hideGroup(c("Gadir oder erkenne dich (1949)", "Brand's Haide (1951)", "Schwarze Spiegel (1951)", "Aus dem Leben eines Fauns (1953)",  "Die Umsiedler (1953)", "Das steinerne Herz (1956)", "Kaff auch Mare Crisium (1960)", "Windmuehlen (1960)", "Kundisches Geschirr (1962)", "Piporakemes! (1962)", "Die Wasserstrasse (1963)", "Zettel's Traum (1970)", "Die Schule der Atheisten (1972)", "Abend mit Goldrand (1975)"))
+  #m2
+```
+
+
+```{r}
+#saveWidget(m2, 'map_locations_referenced.html', selfcontained = FALSE)
+```

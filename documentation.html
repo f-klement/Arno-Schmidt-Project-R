@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<style>
+div.ex1 {
+  width: 500px;
+  margin: auto;
+}
+.blocksatz {
+    text-align: justify;
+}
+</style>
+    <title>Documentation</title>
+</head>
+  <body style="background-color:grey;">
+    <div class="ex1"><b>Retrieving the data</b><br>
+      <p class="blocksatz"> Our dataset was gathered by close reading the collected works of Arno Schmidt along with two secondary readings, which focus on chronicling the places he resided in throughout his life as well as providing main geographical references within his writings.<br> <br>
+      The consulted sources are as follows: <br>
+  ‎    Schmidt, Arno: Bargfelder Ausgabe, Werkgruppe I. Zürich: Haffmans 1987. <br>
+      Rathjen, Friedhelm: Bargfeld und die Welt. Ein Arno-Schmidt-Bildatlas. Norderstedt: Edition ReJoyce 2010. <br>
+      Rauschenbach, Bernd: Besser wohnen. Studien zu Leben und Werk Arno Schmidts. Hannover: Werhahn 2021, S. 24–105. <br><br>
+      The data was first collected in an Excel spreadsheet with three different sheets: The first one “locations_lived” contains all the locations, where Arno Schmidt lived throughout his life. The second one “locations_referenced” contains all the locations, which are referenced in Arno Schmidt’s prose writings, while the third sheet contains all the referenced writings themselves.</p>
+    </div>
+    <div class="ex1"><br><b>Structuring the data</b><br>
+      <p class="blocksatz"> In order to make the dataset as tidy as possible and to avoid any ambiguity, we strived for including as few columns as possible, containing variables with mutable information independent of the rows. We also only included variables which we deemed necessary for our subsequent geographical analysis to create a dataset adequate for our mapping methods.
+      For the creation of “locations_lived” we only included locations, at which Schmidt resided for a longer period of time – thus we did not include any data on shorter trips, vacational or vocational leaves. In order to account for historical accuracy, we created separate columns for the original name (i. e. the name the respective location had during Schmidt’s actual stay) as well as the current name (i. e. the name the respective location is currently known under). This decision was also a compulsory inclusion for geo coding the place names afterwards via their longitude and latitude. Due to a number of geopolitical upheavals during Schmidt’s lifetime (e. g. The Second World War) many of the entries for state and/or country experienced considerable change and were therefore also included in both their original and their current affiliation. We also included the exact address for “locations_lived”, because of the fact that they were stated in the source text and could generate further insights into the exact locations Schmidt resided at and their relation to his working environment. The column “category” functions as a categorical indicator whether the respective location was situated in a rural or urban setting. Last but not least the sheet also contains the columns “moved_in” and “moved_out”, which provide information for how long Schmidt resided at the different locations.
+      The second sheet “locations_referenced” shows – at least in its preliminary structure – a lot of overlap with “locations_lived”. Here we decided against including a more specific “address” column but opted for more variety in the “category”, by introducing also regions and islands to this subset of our data, given the fact that Schmidt incorporated a wider array of topographical properties in his literary oeuvre than he ever encountered in his personal life. In adherence to our tidy data philosophy, we opted for making each geographical reference per work its own row. The column which contains the information on the textual reference itself points to the third sheet via a unique identifier.
+      The final sheet “works” includes all the actual titles of the referenced works from the second sheet as well as their years of their first publication.</p>
+    </div>
+    <div class="ex1"><br><b>Possible shortcomings of the data</b><br>
+      <p class="blocksatz"> As previously stated, we only focused on Schmidt’s geographical locations in his prose works and thus neglected any other works of his such as essays or poems. We also decide to exclude shorter stays or other sojourns, which nevertheless might still play a crucial role in understanding the recurrence of specific places mentioned throughout Schmidt’s works, to which there are no obvious pointers connecting “locations_lived” and “locations_referenced” in our dataset. Our decision to assign the different locations only to a small set of different categories could be a potential problem for further, more detailed geographical analysis, which might for example aim for additional enquiries in the microcosmic qualities of a respective location and its impact on the actual working environment of Schmidt.</p>
+    </div>
+    <div class="ex1"><br><b>For further research interests:</b><br>
+      <p> Please see our <a href="https://github.com/DavidSiegl/Arno-Schmidt-Project">GitHub Repository</a><br>
+      Also do not hesitate to reach out: <br>
+      Florian Klement (florian.klement@univie.ac.at)<br>
+      David Siegl (david.siegl@univie.ac.at)</p>
+    </body>
+</html>

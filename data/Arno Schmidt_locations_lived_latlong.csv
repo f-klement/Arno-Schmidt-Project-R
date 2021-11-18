@@ -1,0 +1,16 @@
+"id","address","state_original","state_current","country_current","country_original","location_current","location_original","lat","long","category","moved_in","moved_out"
+"1","Rumpffsweg 27","Nordrhein-Westfalen","Nordrhein-Westfalen","Germany","Germany","Hamm","Hamm",51.6804093,7.815197,"city",1914,1928
+"2","Laubaner Walkgasse 12","Niederschlesien","Niederschlesien","Poland","German speaking Polish territory","Luban","Lauban",51.12076,15.29186,"city",1928,1938
+"3","Greiffenberger Schuetzenstrasse 4","Niederschlesien","Niederschlesien","Poland","German speaking Polish territory","Gryfow Slaski","Greiffenberg",51.033333,15.416667,"city",1938,1940
+"4","Arras-Kaserne","Sudetenland","Liberecky kraj","Czech Republic","Czechoslovakia","Doksy","Hirschberg",50.5642825,14.6553399,"city",1940,1941
+"5","Garnison Hagenau","Elsass","Grand Est","France","Germany","Haguenau","Hagenau",48.8172236,7.7885978,"city",1941,1941
+"6",NA,"Niederschlesien","Niederschlesien","Poland","German speaking Polish territory","Luban","Lauban",51.12076,15.29186,"city",1941,1942
+"7",NA,"More og Romsdal","More og Romsdal","Norway","Norway","Leirvag","Leirvag",59.31853,5.35143,"village",1942,1945
+"8","Kriegsgefangenen-Auffanglager 2218","Bruxelles ","Bruxelles ","Belgium","Belgium","Vilvoorde","Vilvoorde",50.9287524,4.4228712,"city",1945,1945
+"9","Transitlager Luthe","Hannover","Hannover","Germany","Germany","Wunstorf","Wunstorf",52.4257979,9.4294425,"city",1945,1945
+"10","Munsterlager","Niedersachsen","Niedersachsen","Germany","Germany","Munster","Munster",51.9625101,7.6251879,"city",1945,1945
+"11","Muehlenhof","Niedersachsen","Niedersachsen","Germany","Germany","Cordingen","Cordingen",52.9093539,9.6221033,"village",1945,1950
+"12","Breitnebenstrasse 229","Rheinland-Pfalz","Rheinland-Pfalz","Germany","Germany","Gau-Bickelheim","Gau-Bickelheim",49.8353,8.02056,"village",1950,1951
+"13","Haus Nr. 63","Rheinland-Pfalz","Rheinland-Pfalz","Germany","Germany","Kastel","Kastel",49.576366,6.97714865017861,"village",1951,1955
+"14","Inselstrasse","Hessen","Hessen","Germany","Germany","Darmstadt","Darmstadt",49.872775,8.651177,"city",1955,1958
+"15","Haus Nr. 67","Niedersachsen","Niedersachsen","Germany","Germany","Bargfeld","Bargfeld",52.703611,10.346944,"village",1958,1979

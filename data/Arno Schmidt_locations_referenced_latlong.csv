@@ -1,0 +1,61 @@
+"id","state_original","state_current","country_current","country_original","location_current","location_original","lat","long","category","work_referenced","count_references","link"
+"1","Niedersachsen","Niedersachsen","Germany","Germany","Bargfeld","Bargfeld",52.703611,10.346944,"village",14,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Kaff%20auch%20Mare%20Crisium&q=bargfeld
+"2","Niedersachsen","Niedersachsen","Germany","Germany","Bargfeld","Bargfeld",52.703611,10.346944,"village",16
+"3","Niedersachsen","Niedersachsen","Germany","Germany","Bargfeld","Bargfeld",52.703611,10.346944,"village",21
+"4","Niedersachsen","Niedersachsen","Germany","Germany","Bargfeld","Bargfeld",52.703611,10.346944,"village",25,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Abend%20mit%20Goldrand&q=bargfeld
+"5","Niedersachsen","Niedersachsen","Germany","Germany","Ahlden","Ahlden",52.7591196,9.5515675,"village",8, 16,https://www.arno-schmidt-stiftung.de/eba/search?title=Das%20steinerne%20Herz&q=Ahlden
+"6","Niedersachsen","Niedersachsen","Germany","Germany","Benefeld","Benefeld",52.9059502,9.6352774,"village",3
+"7","Niedersachsen","Niedersachsen","Germany","Germany","Benefeld","Benefeld",52.9059502,9.6352774,"village",4,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Schwarze%20Spiegel&q=Benefeld
+"8","Niedersachsen","Niedersachsen","Germany","Germany","Benefeld","Benefeld",52.9059502,9.6352774,"village",26,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Die%20Umsiedler&q=Benefeld
+"9","Vestland","Vestland","Norway","Norway","Bergen","Bergen",60.3943055,5.3259192,"city",8
+"10","Vestland","Vestland","Norway","Norway","Bergen","Bergen",60.3943055,5.3259192,"city",24
+"11","Freie Hansestadt","Freie Hansestadt","Germany","Germany","Bremerhaven","Bremerhaven",53.5522264,8.5865509,"city",27,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Die%20Schule%20der%20Atheisten&q=Bremerhaven
+"12","Andalusia","Andalusia","Spain","Spain","Cadiz","Cadiz",36.5297438,-6.2928976,"city",1
+"13","Niedersachsen","Niedersachsen","Germany","Germany","Cordingen","Cordingen",52.9093539,9.6221033,"village",4,3,https://www.arno-schmidt-stiftung.de/eba/search?title=Schwarze%20Spiegel&q=Cordingen
+"14","Niedersachsen","Niedersachsen","Germany","Germany","Cordingen","Cordingen",52.9093539,9.6221033,"village",5,4,https://www.arno-schmidt-stiftung.de/eba/search?title=Aus%20dem%20Leben%20eines%20Fauns&q=Cordingen
+"15","Jutland","Jutland","Denmark","Denmark","Esbjerg","Esbjerg",55.4664892,8.4520751,"city",27,5,https://www.arno-schmidt-stiftung.de/eba/search?title=Die%20Schule%20der%20Atheisten&q=Esbjerg
+"16","Sachsen","Sachsen","Germany","Germany","Goerlitz","Goerlitz",51.152778,14.987222,"city",24,26,https://www.arno-schmidt-stiftung.de/eba/search?title=Zettel%E2%80%99s%20Traum&q=G%C3%B6rlitz
+"17","Sachsen","Sachsen","Germany","Germany","Goerlitz","Goerlitz",51.152778,14.987222,"city",25,8,https://www.arno-schmidt-stiftung.de/eba/search?title=Abend%20mit%20Goldrand&q=G%C3%B6rlitz
+"18","Sachsen","Sachsen","Germany","Germany","Goerlitz","Goerlitz",51.152778,14.987222,"city",3,2,https://www.arno-schmidt-stiftung.de/eba/search?title=Brand%E2%80%99s%20Haide&q=G%C3%B6rlitz
+"19","Hamburg","Hamburg","Germany","Germany","Hamburg","Hamburg",53.550341,10.000654,"city",4,6,https://www.arno-schmidt-stiftung.de/eba/search?title=Schwarze%20Spiegel&q=Hamburg
+"20","Hamburg","Hamburg","Germany","Germany","Hamburg","Hamburg",53.550341,10.000654,"city",5,4,https://www.arno-schmidt-stiftung.de/eba/search?title=Aus%20dem%20Leben%20eines%20Fauns&q=Hamburg
+"21","Hamburg","Hamburg","Germany","Germany","Hamburg","Hamburg",53.550341,10.000654,"city",25,17,https://www.arno-schmidt-stiftung.de/eba/search?title=Abend%20mit%20Goldrand&q=Hamburg
+"22","Niedersachsen","Niedersachsen","Germany","Germany","Hankensbuettel","Hankensbuettel",52.730833,10.603611,"village",14,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Kaff%20auch%20Mare%20Crisium&q=Hankensbuettel
+"23","Niedersachsen","Niedersachsen","Germany","Germany","Huenzingen","Huenzingen",52.8976,9.5905,"village",5,3,https://www.arno-schmidt-stiftung.de/eba/search?title=Aus%20dem%20Leben%20eines%20Fauns&q=Huenzingen
+"24","Schleswig-Holstein","Schleswig-Holstein","Germany","Germany","Husum","Husum",54.4853638,9.0538156,"city",24,3,https://www.arno-schmidt-stiftung.de/eba/search?title=Zettel%E2%80%99s%20Traum&q=Husum
+"25","Schleswig-Holstein","Schleswig-Holstein","Germany","Germany","Husum","Husum",54.4853638,9.0538156,"city",25,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Abend%20mit%20Goldrand&q=Husum
+"26","Schleswig-Holstein","Schleswig-Holstein","Germany","Germany","Husum","Husum",54.4853638,9.0538156,"city",27,4,https://www.arno-schmidt-stiftung.de/eba/search?title=Die%20Schule%20der%20Atheisten&q=Husum
+"27","Niedersachsen","Niedersachsen","Germany","Germany","Kirchwalsede","Kirchwalsede",53.0195569,9.3952433,"village",24
+"28","Niedersachsen","Niedersachsen","Germany","Germany","Kirchwalsede","Kirchwalsede",53.0195569,9.3952433,"village",8,1,https://www.arno-schmidt-stiftung.de/eba/search?q=Kirchwalsede
+"29","Niederschlesien","Niederschlesien","Poland","German speaking Polish territory","Luban","Lauban",51.12076,15.29186,"city",24,10,https://www.arno-schmidt-stiftung.de/eba/search?title=Zettel%E2%80%99s%20Traum&q=Lauban
+"30","Niederschlesien","Niederschlesien","Poland","German speaking Polish territory","Luban","Lauban",51.12076,15.29186,"city",25,12,https://www.arno-schmidt-stiftung.de/eba/search?title=Abend%20mit%20Goldrand&q=Lauban
+"31","Hamburg","Hamburg","Germany","Germany","Hamburg","Hamburg",53.550341,10.000654,"city",27,2,https://www.arno-schmidt-stiftung.de/eba/search?title=Die%20Schule%20der%20Atheisten&q=Hamburg
+"32","Jutland","Jutland","Denmark","Denmark","Nordby","Nordby",55.4498384,8.4058414,"island",27,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Die%20Schule%20der%20Atheisten&q=Nordby
+"33","Schleswig-Holstein","Schleswig-Holstein","Germany","Germany","Nordstrand","Nordstrand",54.4873775,8.8652863,"island",24
+"34","Schleswig-Holstein","Schleswig-Holstein","Germany","Germany","Nordstrand","Nordstrand",54.4873775,8.8652863,"island",25
+"35","Oslo","Oslo","Norway","Norway","Oslo","Oslo",59.9133301,10.7389701,"region",14,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Kaff%20auch%20Mare%20Crisium&q=Oslo
+"36","Oslo","Oslo","Norway","Norway","Oslo","Oslo",59.9133301,10.7389701,"region",3
+"37","Limerick","Limerick","Ireland","Ireland","Pallaskenry","Pallaskenry",52.64874795,-8.85953336351144,"village",8
+"38","Niedersachsen","Niedersachsen","Germany","Germany","Raederloh","Raederloh",52.7271759,10.4099638,"village",20,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Kundisches%20Geschirr&q=Raederloh
+"39","Niedersachsen","Niedersachsen","Germany","Germany","Raederloh","Raederloh",52.7271759,10.4099638,"village",22,2,https://www.arno-schmidt-stiftung.de/eba/search?title=Die%20Wasserstra%C3%9Fe&q=Raederloh
+"40","Esbjerg","Esbjerg","Denmark","Denmark","Ribe","Ribe",55.3284036,8.7647838,"city",27,10,https://www.arno-schmidt-stiftung.de/eba/search?title=Die%20Schule%20der%20Atheisten&q=Ribe
+"41","More og Romsdal","More og Romsdal","Norway","Norway","Romsdal","Romsdal",62.4390366,5.29308820117158,"region",3,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Brand%E2%80%99s%20Haide&q=Romsdal
+"42","More og Romsdal","More og Romsdal","Norway","Norway","Romsdal","Romsdal",62.4390366,5.29308820117158,"region",8
+"43","More og Romsdal","More og Romsdal","Norway","Norway","Romsdal","Romsdal",62.4390366,5.29308820117158,"region",27
+"44","More og Romsdal","More og Romsdal","Norway","Norway","Romsdal","Romsdal",62.4390366,5.29308820117158,"region",24,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Zettel%E2%80%99s%20Traum&q=Romsdal
+"45","Niedersachsen","Niedersachsen","Germany","Germany","Rotenburg","Rotenburg",53.1108906,9.4049292,"village",5,2,https://www.arno-schmidt-stiftung.de/eba/search?title=Aus%20dem%20Leben%20eines%20Fauns&q=Rotenburg
+"46","Inner Hebrides","Inner Hebrides","Scotland","Scotland","Skye","Skye",57.3275,-6.247778,"island",5,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Aus%20dem%20Leben%20eines%20Fauns&q=Skye
+"47","Inner Hebrides","Inner Hebrides","Scotland","Scotland","Skye","Skye",57.3275,-6.247778,"island",24
+"48","Inner Hebrides","Inner Hebrides","Scotland","Scotland","Skye","Skye",57.3275,-6.247778,"island",27
+"49","Fano","Fano","Denmark","Denmark","Sonderho","Sonderho",55.342998628, 8.4666648,"village",27,10,https://www.arno-schmidt-stiftung.de/eba/search?title=Die%20Schule%20der%20Atheisten&q=Sonderho
+"50","Niedersachsen","Niedersachsen","Germany","Germany","Walsrode","Walsrode",52.8625395,9.5883023,"city",4,4,https://www.arno-schmidt-stiftung.de/eba/search?title=Schwarze%20Spiegel&q=Walsrode
+"51","Niedersachsen","Niedersachsen","Germany","Germany","Walsrode","Walsrode",52.8625395,9.5883023,"city",5,10,https://www.arno-schmidt-stiftung.de/eba/search?title=Aus%20dem%20Leben%20eines%20Fauns&q=Walsrode
+"52","Stonehenge","Stonehenge","England","England","Stonehenge","Stonehenge",51.178889,-1.826389,"island",24,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Zettel%E2%80%99s%20Traum&q=Stonehenge
+"53","Stonehenge","Stonehenge","England","England","Stonehenge","Stonehenge",51.178889,-1.826389,"island",27,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Die%20Schule%20der%20Atheisten&q=Stonehenge
+"54","Schleswig-Holstein","Schleswig-Holstein","Germany","Germany","Toenning","Toenning",54.317222,8.942778,"city",27,52,https://www.arno-schmidt-stiftung.de/eba/search?title=Die%20Schule%20der%20Atheisten&q=Toenning
+"55","Venezia","Venezia","Italy","Italy","Venezia","Venezia",45.4371908,12.3345898,"city",24,3,https://www.arno-schmidt-stiftung.de/eba/search?title=Zettel%E2%80%99s%20Traum&q=venedig
+"56","Venezia","Venezia","Italy","Italy","Venezia","Venezia",45.4371908,12.3345898,"city",27,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Die%20Schule%20der%20Atheisten&q=venedig
+"57","Venezia","Venezia","Italy","Italy","Venezia","Venezia",45.4371908,12.3345898,"city",25,2,https://www.arno-schmidt-stiftung.de/eba/search?title=Abend%20mit%20Goldrand&q=venedig
+"58","Niedersachsen","Niedersachsen","Germany","Germany","Visselhoevede","Visselhoevede",52.9847,9.5782,"city",3,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Brand%E2%80%99s%20Haide&q=Visselhoevede
+"59","Niedersachsen","Niedersachsen","Germany","Germany","Visselhoevede","Visselhoevede",52.9847,9.5782,"city",4,1,https://www.arno-schmidt-stiftung.de/eba/search?title=Schwarze%20Spiegel&q=Visselhoevede
+"60","Niedersachsen","Niedersachsen","Germany","Germany","Visselhoevede","Visselhoevede",52.9847,9.5782,"city",5,4,https://www.arno-schmidt-stiftung.de/eba/search?title=Aus%20dem%20Leben%20eines%20Fauns&q=Visselhoevede
